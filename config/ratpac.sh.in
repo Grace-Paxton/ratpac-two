@@ -1,10 +1,33 @@
-#!/bin/bash
+# Change to fit personal path files
 
-export RATROOT=@RATROOT@
+# Clear DYLD to avoid legacy conflicts
+unset DYLD_LIBRARY_PATH
+
+# ===== RATPAC ENVIRONMENT =====
+export RATROOT=~/ratpacplease
+export RATSHARE=$RATROOT
 export PATH=$RATROOT/bin:$PATH
-export LD_LIBRARY_PATH=$RATROOT/lib:$LD_LIBRARY_PATH
-export RATSHARE=@RATSHARE@
 export PYTHONPATH=$RATSHARE/python:$PYTHONPATH
 export ROOT_INCLUDE_PATH=$RATROOT/include
-# For Mac OS X
-export DYLD_LIBRARY_PATH=$RATROOT/lib:$DYLD_LIBRARY_PATH
+export RATDBPATH=$RATROOT/ratdb
+# ===== GEANT4 ENVIRONMENT =====
+export G4ROOT=~/geant4please
+export G4DATA=~/geant4please/Data
+export DGeant4_DIR=/Users/gracepaxton/Geant4-example/lib/cmake/Geant4
+export G4LEDATA=$G4ROOT/Data/G4EMLOW8.6.1
+export G4LEVELGAMMADATA=$G4DATA/PhotonEvaporation6.1
+export G4RADIOACTIVEDATA=$G4DATA/RadioactiveDecay6.1.2
+export G4NEUTRONHPDATA=$G4DATA/G4NDL4.7.1
+export G4ABLADATA=$G4DATA/G4ABLA3.3
+export G4ENSDFSTATEDATA=$G4DATA/G4ENSDFSTATE3.0
+export G4SAIDXSDATA=$G4DATA/G4SAIDDATA2.0
+export G4PARTICLEXSDATA=$G4DATA/G4PARTICLEXS4.1
+export G4PIIDATA=$G4DATA/G4PII1.3
+export G4INCLDATA=$G4DATA/G4INCL1.2
+export G4CHANNELINGDATA=$G4DATA/G4CHANNELING1.0
+
+# ===== LIBRARY PATHS =====
+export DYLD_LIBRARY_PATH=$RATROOT/lib:$G4ROOT/lib:/usr/local/lib:$DYLD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$DYLD_LIBRARY_PATH  # just in case anything uses it
+
+echo "✅ RATPAC + Geant4 environment loaded!"
