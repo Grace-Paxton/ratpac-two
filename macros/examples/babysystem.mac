@@ -1,0 +1,27 @@
+# Reduce unrelated physics for faster debugging
+/glg4debug/glg4param omit_muon_processes 1.0
+/glg4debug/glg4param omit_hadronic_processes 1.0
+
+# Folders and Files
+/rat/db/set DETECTOR experiment "Validation"
+/rat/db/set DETECTOR geo_file "Validation/system.geo"
+/rat/db/set NOISEPROC noise_flag 1
+
+/run/initialize
+
+# Processors
+/rat/proc noise
+/rat/proc count
+/rat/procset update 500
+/rat/proc splitevdaq
+/rat/procset trigger_threshold 0.1
+/rat/proc classifychargebalance 
+/rat/proclast outroot
+
+# Generators
+
+/generator/add decaychain 212Bi:paint:poisson
+
+/run/beamOn 3000 
+
+#232Th, 238U, 239Po, 212Bi

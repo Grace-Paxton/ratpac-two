@@ -1,0 +1,40 @@
+/glg4debug/glg4param omit_muon_processes 1.0
+/glg4debug/glg4param omit_hadronic_processes 1.0
+
+/rat/db/set DETECTOR experiment "Validation"
+/rat/db/set DETECTOR geo_file "Validation/babyfirework.geo"
+
+/rat/db/set NOISEPROC noise_flag 1
+
+/run/initialize
+
+/rat/proc noise
+/rat/proc forcedtrigger
+/rat/proc count
+/rat/procset update 5000
+
+#
+#/rat/proc splitevdaq
+#/rat/procset trigger_threshold 0.1
+/rat/proc classifychargebalance
+/rat/proclast outroot
+
+#The fireworks show
+/generator/add combo pbomb:point:poisson #Main generator command. Isotropic ball of photons
+/generator/vtx/set 1000 500 #Number of photons & Wavelength in nm
+/generator/pos/set -1500 0 0 #Starting position in x y z
+
+/generator/add combo pbomb:point:poisson
+/generator/vtx/set 2000 400
+/generator/pos/set -1500 500 0
+
+/generator/add combo pbomb:point:poisson
+/generator/vtx/set 1000 600
+/generator/pos/set -2000 0 0
+
+/generator/add combo pbomb:point:poisson
+/generator/vtx/set 1000 700
+/generator/pos/set -1000 0 0
+
+/run/beamOn 5000
+

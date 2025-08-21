@@ -1,0 +1,27 @@
+# Reduce unrelated physics for faster debugging
+/glg4debug/glg4param omit_muon_processes 1.0
+/glg4debug/glg4param omit_hadronic_processes 1.0
+
+# Set up the experiment
+/rat/db/set DETECTOR experiment "Validation" # This tells it which experiment folder to use
+/rat/db/set DETECTOR geo_file "Validation/babycore.geo" # Which .geo (geometry) file
+/rat/db/set NOISEPROC noise_flag 1 # Background noise
+
+/run/initialize
+
+# Processors
+/rat/proc noise # Again, noise
+/rat/proc count # Counts the amount of events
+/rat/procset update 200 # Sends an update every 200 events (clogs the terminal less)
+/rat/proc splitevdaq
+/rat/procset trigger_threshold 0.001 # Amount of energy needed to trigger the detector
+/rat/proc classifychargebalance 
+/rat/proclast outroot # Makes an output.root file when done
+
+#Generators
+/generator/add decaychain 212Bi:point:poisson # Creates a generator
+# In this case, creates a point source of isotope of Bi-212 at a poisson rate (time)
+/generator/pos/set 0 0 0 # Position of point source/initial position
+
+/run/beamOn 400 # Makes 400 of them
+
